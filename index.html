@@ -8,9 +8,46 @@
     <link rel="stylesheet" href="styles/style.css">
   </head>
   <body>
-    <button>New</button>
-    <table>
+    <div class="container">
+        <div class="new">
+            <button class="new_button">New</button>
+            <form action="library.com/path" method="post" id="form_new_book">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
 
-    </table>
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" required>
+
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" name="pages" required>
+
+                <h3>Read Status</h3>
+                <div>
+                    <input type="radio" id="read" name="read_status" value="read" required>
+                    <label for="read">Read</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="not_read" name="read_status" value="not_read" checked>
+                    <label for="not_read">Not Read</label>
+                </div>
+
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+
+
+            </form>
+        </div>
+
+        <div class="library">
+            <table>
+
+             </table>
+
+        </div>
+
+    </div>
+
   </body>
 </html>
+

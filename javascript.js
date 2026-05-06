@@ -24,6 +24,11 @@ function addBookToLibrary(title, author, pages, read) {
 addBookToLibrary("The Seattle Times", "Journalists", 74, false);
 addBookToLibrary("The Stand", "Stephen King", 700, true);
 addBookToLibrary("How to Win Friends and Influence People", "Dale Carnegie", 320, false);
+addBookToLibrary("Harry Potter", "JK Rowling", 573, false);
+addBookToLibrary("Atlas Shrugged", "Ayn Rand", 821, true);
+addBookToLibrary("A Promised Land", "Barack Obama", 648, true);
+addBookToLibrary("Decision Points", "George W Bush", 501, false);
+
 
 // function displayLibrary() {
 //     myLibrary.forEach((book => {
@@ -72,10 +77,62 @@ function generateTable(table, library) {
         let cell_4 = row.insertCell();
         let text_4 = document.createTextNode(book.read);
         cell_4.appendChild(text_4);
+        let cell_5 = row.insertCell();
+        let button_remove = document.createElement('button');
+        button_remove.textContent = "Delete";
+        button_remove.className = "remove_button";
+        button_remove["data-id"] = book.id;
 
+        // button_remove.addEventListener('click', (event) => {
+
+        // })
+        // console.log(button_remove["data-id"]);
+        cell_5.appendChild(button_remove);
     }
 }
+
+// function appendToTable(table, data) {
+
+// }
 
 let table = document.querySelector("table");
 generateTable(table, myLibrary);
 generateTableHead(table);
+
+const form = document.getElementById('form_new_book');
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    event.target.reset();
+
+    console.log(data);
+    console.log(typeof(data.read_status))
+
+    addBookToLibrary(data.title, data.author, data.pages, data.read_status === 'read' ? true : false);
+    table.innerHTML = "";
+    // document.querySelector("tbody").innerHTML = "";
+    generateTable(table, myLibrary);
+    generateTableHead(table);
+
+});
+
+const remove_buttons = document.getElementsByClassName("remove_button");
+
+for (const button of remove_buttons) {
+    button.addEventListener('click', (event) => {
+        let book_id = button['data-id'];
+        const index = myLibrary.findIndex(book => book.id === book_id);
+        myLibrary.splice(index, 1);
+        table.innerHTML = "";
+        generateTable(table, myLibrary);
+        generateTableHead(table);
+    })
+}
+
+function delete_book(book_id, library) {
+    
+}
