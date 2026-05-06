@@ -82,6 +82,9 @@ function generateTable(table, library) {
         button_remove.textContent = "Delete";
         button_remove.className = "remove_button";
         button_remove["data-id"] = book.id;
+        button_remove.addEventListener('click', (event) => {
+            delete_book(button_remove["data-id"], library);
+        });
 
         // button_remove.addEventListener('click', (event) => {
 
@@ -120,19 +123,23 @@ form.addEventListener('submit', (event) => {
 
 });
 
-const remove_buttons = document.getElementsByClassName("remove_button");
+// const remove_buttons = document.getElementsByClassName("remove_button");
 
-for (const button of remove_buttons) {
-    button.addEventListener('click', (event) => {
-        let book_id = button['data-id'];
-        const index = myLibrary.findIndex(book => book.id === book_id);
-        myLibrary.splice(index, 1);
-        table.innerHTML = "";
-        generateTable(table, myLibrary);
-        generateTableHead(table);
-    })
-}
+// for (const button of remove_buttons) {
+//     button.addEventListener('click', (event) => {
+//         let book_id = button['data-id'];
+//         const index = myLibrary.findIndex(book => book.id === book_id);
+//         myLibrary.splice(index, 1);
+//         table.innerHTML = "";
+//         generateTable(table, myLibrary);
+//         generateTableHead(table);
+//     })
+// }
 
 function delete_book(book_id, library) {
-    
+    const index = myLibrary.findIndex(book => book.id === book_id);
+    myLibrary.splice(index, 1);
+    table.innerHTML = "";
+    generateTable(table, myLibrary);
+    generateTableHead(table);
 }
