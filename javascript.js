@@ -16,6 +16,10 @@ function Book(id, title, author, pages, read) {
     }
 }
 
+Book.prototype.changeRead = function() {
+    this.read = (this.read) ? false : true;
+}
+
 function addBookToLibrary(title, author, pages, read) {
   let book = new Book(crypto.randomUUID(), title, author, pages, read);
   myLibrary.push(book);
@@ -83,7 +87,7 @@ function generateTable(table, library) {
         button_remove.className = "remove_button";
         button_remove["data-id"] = book.id;
         button_remove.addEventListener('click', (event) => {
-            delete_book(button_remove["data-id"], library);
+            deleteBook(button_remove["data-id"], library);
         });
 
         // button_remove.addEventListener('click', (event) => {
@@ -91,6 +95,21 @@ function generateTable(table, library) {
         // })
         // console.log(button_remove["data-id"]);
         cell_5.appendChild(button_remove);
+
+        let cell_6 = row.insertCell();
+        let button_read = document.createElement('button');
+        button_read.textContent = "Read";
+        button_read.className = "read_button";
+        button_read["data-id"] = book.id;
+        button_read.addEventListener('click', (event) => {
+            changeReadStatus(button_read["data-id"], library);
+        });
+
+        // button_remove.addEventListener('click', (event) => {
+
+        // })
+        // console.log(button_remove["data-id"]);
+        cell_6.appendChild(button_read);
     }
 }
 
@@ -136,10 +155,18 @@ form.addEventListener('submit', (event) => {
 //     })
 // }
 
-function delete_book(book_id, library) {
+function deleteBook(book_id, library) {
     const index = myLibrary.findIndex(book => book.id === book_id);
-    myLibrary.splice(index, 1);
+    library.splice(index, 1);
     table.innerHTML = "";
-    generateTable(table, myLibrary);
+    generateTable(table, library);
+    generateTableHead(table);
+}
+
+function changeReadStatus(book_id, library) {
+    const index = myLibrary.findIndex(book => book.id === book_id);
+    library[index].changeRead();
+    table.innerHTML = "";
+    generateTable(table, library);
     generateTableHead(table);
 }
