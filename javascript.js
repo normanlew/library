@@ -96,6 +96,10 @@ function generateTable(table, library) {
     }
 }
 
+let table = document.querySelector("table");
+generateTable(table, myLibrary);
+generateTableHead(table);
+
 let new_book = document.getElementById("new_button");
 
 new_book.addEventListener("click", (event) => {
@@ -109,9 +113,6 @@ function showNewBookForm() {
     console.log(document.getElementById("form_new_book").style.display);
 }
 
-let table = document.querySelector("table");
-generateTable(table, myLibrary);
-generateTableHead(table);
 
 const form = document.getElementById('form_new_book');
 
