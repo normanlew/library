@@ -1,3 +1,5 @@
+document.getElementById("form_new_book").style.display = "none";
+
 const myLibrary = [];
 
 function Book(id, title, author, pages, read) {
@@ -32,17 +34,6 @@ addBookToLibrary("Harry Potter", "JK Rowling", 573, false);
 addBookToLibrary("Atlas Shrugged", "Ayn Rand", 821, true);
 addBookToLibrary("A Promised Land", "Barack Obama", 648, true);
 addBookToLibrary("Decision Points", "George W Bush", 501, false);
-
-
-// function displayLibrary() {
-//     myLibrary.forEach((book => {
-//         console.log(book);
-//     }))
-// }
-
-// let table = document.createElement("table");
-
-// table.appendChild()
 
 function generateTableHead(table) {
     let thead = table.createTHead();
@@ -90,10 +81,6 @@ function generateTable(table, library) {
             deleteBook(button_remove["data-id"], library);
         });
 
-        // button_remove.addEventListener('click', (event) => {
-
-        // })
-        // console.log(button_remove["data-id"]);
         cell_5.appendChild(button_remove);
 
         let cell_6 = row.insertCell();
@@ -105,17 +92,22 @@ function generateTable(table, library) {
             changeReadStatus(button_read["data-id"], library);
         });
 
-        // button_remove.addEventListener('click', (event) => {
-
-        // })
-        // console.log(button_remove["data-id"]);
         cell_6.appendChild(button_read);
     }
 }
 
-// function appendToTable(table, data) {
+let new_book = document.getElementById("new_button");
 
-// }
+new_book.addEventListener("click", (event) => {
+    console.log("click!!1");
+    showNewBookForm();
+})
+
+function showNewBookForm() {
+    console.log("in showNewBookForm()");
+    document.getElementById("form_new_book").style.display = "block";
+    console.log(document.getElementById("form_new_book").style.display);
+}
 
 let table = document.querySelector("table");
 generateTable(table, myLibrary);
@@ -136,24 +128,11 @@ form.addEventListener('submit', (event) => {
 
     addBookToLibrary(data.title, data.author, data.pages, data.read_status === 'read' ? true : false);
     table.innerHTML = "";
-    // document.querySelector("tbody").innerHTML = "";
+    document.getElementById("form_new_book").style.display = "none";
     generateTable(table, myLibrary);
     generateTableHead(table);
 
 });
-
-// const remove_buttons = document.getElementsByClassName("remove_button");
-
-// for (const button of remove_buttons) {
-//     button.addEventListener('click', (event) => {
-//         let book_id = button['data-id'];
-//         const index = myLibrary.findIndex(book => book.id === book_id);
-//         myLibrary.splice(index, 1);
-//         table.innerHTML = "";
-//         generateTable(table, myLibrary);
-//         generateTableHead(table);
-//     })
-// }
 
 function deleteBook(book_id, library) {
     const index = myLibrary.findIndex(book => book.id === book_id);
