@@ -2,18 +2,16 @@ document.getElementById("form_new_book").style.display = "none";
 
 const myLibrary = [];
 
-function Book(id, title, author, pages, read) {
-    if (!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor");
+class Book { 
+    constructor(id, title, author, pages, read) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
     }
 
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-
-    this.info = function() {
+    info() {
         return `${this.id}, ${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'read' : 'not read'}`;
     }
 }
