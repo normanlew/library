@@ -148,3 +148,26 @@ function changeReadStatus(book_id, library) {
     generateTable(table, library);
     generateTableHead(table);
 }
+
+function checkIfValid() {
+    let div_error = document.getElementById("error_msg");
+    div_error.innerHTML = "";
+    if (document.getElementById("title").validity.valueMissing) {
+        let p_title_error = document.createElement("p");
+        p_title_error.innerHTML = "Missing title";
+        div_error.appendChild(p_title_error);
+    }
+
+    if (document.getElementById("author").validity.valueMissing) {
+        let p_author_error = document.createElement("p");
+        p_author_error.innerHTML = "Missing author";
+        div_error.appendChild(p_author_error);
+    }
+
+    if (document.getElementById("pages").validity.valueMissing) {
+        let p_pages_error = document.createElement("p");
+        p_pages_error.innerHTML = "Missing pages";
+        div_error.appendChild(p_pages_error);
+    }
+}
+
